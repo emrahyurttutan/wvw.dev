@@ -106,12 +106,17 @@
     return `<span class="star-count"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>${formatNumber(stars)}</span>`;
   }
 
+  function ownerBadge(app) {
+    if (!app._owner) return "";
+    return `<span class="owner-badge">${app._owner}</span>`;
+  }
+
   function appRow(app) {
     return `
       <div class="app-row" data-app="${app.id}">
         <div class="app-icon"${iconContainerStyle(app)}>${renderIcon(app)}</div>
         <div class="app-info">
-          <div class="app-name">${app.name}</div>
+          <div class="app-name">${app.name} ${ownerBadge(app)}</div>
           <div class="app-subtitle">${app.subtitle}</div>
           <div class="app-meta">
             <span class="app-meta-tag">${app.platform}</span>
@@ -313,7 +318,7 @@
         <div class="app-detail-header">
           <div class="app-detail-icon"${iconContainerStyle(app)}>${renderIcon(app)}</div>
           <div class="app-detail-title-area">
-            <div class="app-detail-title">${app.name}</div>
+            <div class="app-detail-title">${app.name} ${ownerBadge(app)}</div>
             <div class="app-detail-subtitle">${app.subtitle}</div>
             <div class="app-detail-actions">
               <button class="app-detail-get-btn" data-action="get" data-app="${app.id}">
@@ -386,6 +391,14 @@
               <span class="info-label">Developer</span>
               <span class="info-value">${app.developer || data.store.developer}</span>
             </div>
+            ${app._owner ? `<div class="info-item">
+              <span class="info-label">Published by</span>
+              <span class="info-value"><a href="https://github.com/${app._owner}" target="_blank" rel="noopener">${app._owner}</a></span>
+            </div>` : ""}
+            ${app._source ? `<div class="info-item">
+              <span class="info-label">Source Store</span>
+              <span class="info-value"><a href="https://github.com/${app._source}" target="_blank" rel="noopener">${app._store || app._source}</a></span>
+            </div>` : ""}
             <div class="info-item">
               <span class="info-label">Compatibility</span>
               <span class="info-value">${app.requirements}</span>

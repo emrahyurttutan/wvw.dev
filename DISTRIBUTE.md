@@ -12,6 +12,19 @@ Another repo (apps.json) ┼─→  build.sh  →  unified apps.json  →  wvw.d
 More repos (apps.json)  ─┘
 ```
 
+## Guardrails
+
+WVW applies several guardrails during the build to keep the catalog trustworthy:
+
+| What | Rule |
+|------|------|
+| **Stars & forks** | Declared values in your `apps.json` are **ignored**. WVW fetches live counts from the GitHub API during every build. You cannot inflate your stats. |
+| **Featured apps** | Your `featured` array is **ignored**. WVW maintains its own `featured.json` controlled by the WVW maintainers. To request a feature spot, open an issue. |
+| **Categories** | Only categories listed in WVW's `categories.json` are allowed. Unrecognized category IDs are stripped from your apps. Apps with zero valid categories are excluded. |
+| **Owner attribution** | Every app gets an owner badge (e.g. `f`) after its name, derived from your GitHub repo path. This cannot be faked — it comes from the repo URL in `repos.json`, not from your `apps.json`. |
+| **Source tracking** | The detail page shows "Published by" (GitHub owner) and "Source Store" (the repo that contributed the app). These are injected by the build, not declared by you. |
+| **Deduplication** | If two repos declare the same app `id`, only the first one encountered is kept. Use globally unique IDs. |
+
 ## Step 1: Create Your `apps.json`
 
 Create an `apps.json` file in the root of any public GitHub repo. The easiest way is to clone [Appétit](https://github.com/f/appetit) and edit the JSON, but you can also create the file from scratch.
@@ -47,27 +60,11 @@ Top-level metadata about your store. The `developer` field is the default author
 | `tagline` | No | Short tagline |
 | `github` | No | GitHub profile or org URL |
 
-### Featured (optional)
+### Featured
 
-Apps to highlight in the carousel banner on the Discover page. Each entry references an app by `id`.
+**Note:** Your `featured` array is ignored by WVW. Featured apps on wvw.dev are curated by WVW maintainers via `featured.json`. You can still declare `featured` in your `apps.json` for your own standalone Appétit store — it just won't affect wvw.dev.
 
-```json
-"featured": [
-  {
-    "id": "my-app",
-    "headline": "NEW",
-    "title": "A catchy headline.",
-    "subtitle": "A longer description for the banner."
-  }
-]
-```
-
-| Field | Required | Description |
-|-------|----------|-------------|
-| `id` | Yes | Must match an app `id` in the `apps` array |
-| `headline` | Yes | Small uppercase label (e.g. "NEW APP", "TRENDING") |
-| `title` | Yes | Large banner title |
-| `subtitle` | Yes | Banner description text |
+To request a feature spot, [open an issue](https://github.com/f/wvw.dev/issues).
 
 ### Categories
 
@@ -162,8 +159,8 @@ The core of your store. Each entry is one app.
 | `github` | string (URL) | **Yes** | GitHub repository URL. |
 | `homepage` | string \| null | No | Project website. `null` if none. |
 | `language` | string | No | Primary programming language. |
-| `stars` | integer | No | GitHub star count. Updated automatically if you use `update-stats.sh`. |
-| `forks` | integer | No | GitHub fork count. |
+| `stars` | integer | No | **Ignored by WVW** — overridden with live GitHub API data on every build. You can set these for your own standalone store. |
+| `forks` | integer | No | **Ignored by WVW** — overridden with live GitHub API data on every build. |
 | `brew` | string | No | Homebrew install command (e.g. `"brew install you/tap/app"`). Triggers the install modal with copy button. |
 | `installCommand` | string | No | Alternative install command (e.g. `"npx my-app"`). Triggers the install modal. |
 | `downloadUrl` | string (URL) | No | Direct download link (e.g. GitHub Releases). Shown as secondary button in install modal. |
@@ -268,7 +265,7 @@ The canonical source is [`categories.json`](categories.json).
 - **Keep IDs unique.** Your app `id` values must be globally unique across all stores. Use your project name in kebab-case (e.g. `my-cool-tool`).
 - **Host icons on GitHub.** Use raw.githubusercontent.com URLs so they're always available. For Xcode projects, link to the `.appiconset/icon_512x512.png` file.
 - **Add screenshots.** Apps with screenshots look significantly better in the detail view. Put them in your repo's `docs/` folder.
-- **Set stars/forks.** Include an `update-stats.sh` script (see [Appétit](https://github.com/f/appetit)) to keep counts fresh, or set them manually.
+- **Don't worry about stars/forks.** WVW fetches them live from the GitHub API during every build. Any values you declare are overwritten.
 - **Test locally.** Clone Appétit, replace the `apps.json`, and serve with `python3 -m http.server` to preview your store before submitting.
 
 ## Run Your Own Store

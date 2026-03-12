@@ -2,6 +2,8 @@
 set -euo pipefail
 
 REPOS_FILE="repos.json"
+CATEGORIES_FILE="categories.json"
+FEATURED_FILE="featured.json"
 OUTPUT="apps.json"
 TMP_DIR=$(mktemp -d)
 
@@ -10,16 +12,20 @@ if ! command -v jq &>/dev/null; then
   exit 1
 fi
 
-CATEGORIES_FILE="categories.json"
+AUTH_HEADER=""
+if [ -n "${GITHUB_TOKEN:-}" ]; then
+  AUTH_HEADER="-H \"Authorization: token $GITHUB_TOKEN\""
+fi
 
 repos=$(jq -r '.[]' "$REPOS_FILE")
 allowed_cats=$(jq -r '.[].id' "$CATEGORIES_FILE")
 categories=$(cat "$CATEGORIES_FILE")
+featured=$(cat "$FEATURED_FILE")
 all_apps="[]"
-all_featured="[]"
 
 for repo in $repos; do
   echo -n "Fetching $repo... "
+  owner=$(echo "$repo" | cut -d/ -f1)
 
   raw_url="https://raw.githubusercontent.com/${repo}/HEAD/apps.json"
   tmp_file="$TMP_DIR/$(echo "$repo" | tr '/' '_').json"
@@ -34,26 +40,51 @@ for repo in $repos; do
   developer=$(jq -r '.store.developer // "Unknown"' "$tmp_file")
   echo "OK ($app_count apps from $store_name by $developer)"
 
-  apps_with_source=$(jq --arg repo "$repo" --arg dev "$developer" --arg store "$store_name" --argjson allowed "$(echo "$allowed_cats" | jq -R . | jq -s .)" '
+  apps_with_source=$(jq --arg repo "$repo" --arg owner "$owner" --arg dev "$developer" --arg store "$store_name" --argjson allowed "$(echo "$allowed_cats" | jq -R . | jq -s .)" '
     .apps | map(
-      . + { _source: $repo, _developer: $dev, _store: $store } |
+      . + { _source: $repo, _owner: $owner, _developer: $dev, _store: $store } |
       if .developer == null then .developer = $dev else . end |
       .category = [.category[] | select(. as $c | $allowed | index($c))]
     ) | map(select(.category | length > 0))
   ' "$tmp_file")
   all_apps=$(echo "$all_apps" "$apps_with_source" | jq -s '.[0] + .[1]')
-
-  featured=$(jq '.featured // []' "$tmp_file")
-  all_featured=$(echo "$all_featured" "$featured" | jq -s '.[0] + .[1]')
 done
 
 unique_apps=$(echo "$all_apps" | jq 'unique_by(.id)')
 total=$(echo "$unique_apps" | jq 'length')
 
+echo ""
+echo "Fetching live GitHub stats for $total apps..."
+
+updated_apps="[]"
+while IFS= read -r app_json; do
+  github_url=$(echo "$app_json" | jq -r '.github // ""')
+  app_name=$(echo "$app_json" | jq -r '.name')
+
+  if [[ "$github_url" =~ github\.com/([^/]+/[^/]+) ]]; then
+    repo_path="${BASH_REMATCH[1]}"
+    echo -n "  $app_name ($repo_path)... "
+
+    stats=$(curl -sf "https://api.github.com/repos/$repo_path" \
+      ${GITHUB_TOKEN:+-H "Authorization: token $GITHUB_TOKEN"} 2>/dev/null) || stats=""
+
+    if [ -n "$stats" ]; then
+      stars=$(echo "$stats" | jq '.stargazers_count // 0')
+      forks=$(echo "$stats" | jq '.forks_count // 0')
+      echo "★ $stars  ⑂ $forks"
+      app_json=$(echo "$app_json" | jq --argjson s "$stars" --argjson f "$forks" '.stars = $s | .forks = $f')
+    else
+      echo "SKIPPED (API error)"
+    fi
+  fi
+
+  updated_apps=$(echo "$updated_apps" "[$app_json]" | jq -s '.[0] + .[1]')
+done < <(echo "$unique_apps" | jq -c '.[]')
+
 jq -n \
-  --argjson apps "$unique_apps" \
+  --argjson apps "$updated_apps" \
   --argjson categories "$categories" \
-  --argjson featured "$all_featured" \
+  --argjson featured "$featured" \
   '{
     store: {
       name: "World Vibe Web",
@@ -67,4 +98,5 @@ jq -n \
   }' > "$OUTPUT"
 
 rm -rf "$TMP_DIR"
+echo ""
 echo "Done. $total apps merged into $OUTPUT"
