@@ -28,7 +28,7 @@ stores.json         →  build.sh         →  apps.json      →  static site
  apps.json files)       apps.json)                              apps.json)
 ```
 
-1. `repos.json` lists GitHub repos (e.g. `"f/appetit"`)
+1. `stores.json` lists store sources — GitHub repo paths or direct URLs to `apps.json` files
 2. A GitHub Action runs `build.sh` every 6 hours
 3. `build.sh` fetches each repo's `apps.json`, merges apps/categories/featured, deduplicates, and writes a unified `apps.json`
 4. The static site (same Appétit UI) reads the local `apps.json` and renders everything
@@ -64,7 +64,7 @@ python3 -m http.server 8080
 ├── style.css               Appétit UI styles
 ├── app.js                  Appétit UI logic
 ├── logo.svg                WVW favicon/logo
-├── repos.json              List of source repos (edit this)
+├── stores.json             List of store sources (edit this)
 ├── build.sh                Fetches & merges all apps.json
 ├── apps.json               Generated — do not edit manually
 ├── CNAME                   Custom domain

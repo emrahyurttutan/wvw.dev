@@ -21,7 +21,7 @@ WVW applies several guardrails during the build to keep the catalog trustworthy:
 | **Stars & forks** | Declared values in your `apps.json` are **ignored**. WVW fetches live counts from the GitHub API during every build. You cannot inflate your stats. |
 | **Featured apps** | Your `featured` array is **ignored**. WVW maintains its own `featured.json` controlled by the WVW maintainers. To request a feature spot, open an issue. |
 | **Categories** | Only categories listed in WVW's `categories.json` are allowed. Unrecognized category IDs are stripped from your apps. Apps with zero valid categories are excluded. |
-| **Owner attribution** | Every app gets an owner badge (e.g. `f`) after its name, derived from your GitHub repo path. This cannot be faked — it comes from the repo URL in `repos.json`, not from your `apps.json`. |
+| **Owner attribution** | Every app gets an owner badge (e.g. `f`) after its name, derived from your GitHub repo path. This cannot be faked — it comes from the store entry in `stores.json`, not from your `apps.json`. |
 | **Source tracking** | The detail page shows "Published by" (GitHub owner) and "Source Store" (the repo that contributed the app). These are injected by the build, not declared by you. |
 | **Deduplication** | If two repos declare the same app `id`, only the first one encountered is kept. Use globally unique IDs. |
 
@@ -210,16 +210,19 @@ If both `brew` and `downloadUrl` are set, the install modal shows the brew comma
 
 ## Step 2: Submit to WVW
 
-Once your `apps.json` is in a **public** GitHub repo, open a pull request to [f/wvw.dev](https://github.com/f/wvw.dev) adding your repo to `repos.json`:
+Once your `apps.json` is available, open a pull request to [f/wvw.dev](https://github.com/f/wvw.dev) adding your store to `stores.json`:
 
 ```json
 [
   "f/appetit",
-  "yourname/your-repo"
+  "yourname/your-repo",
+  "https://example.com/apps.json"
 ]
 ```
 
-The format is `owner/repo` — just the GitHub path, not the full URL.
+Each entry can be either:
+- **GitHub repo path** (`owner/repo`) — the build fetches `apps.json` from the repo's default branch
+- **Direct URL** (`https://...`) — the build fetches the JSON directly from that URL
 
 After the PR is merged, the next build cycle (every 6 hours, or triggered manually) will fetch your apps and add them to wvw.dev.
 
@@ -268,7 +271,7 @@ You don't need to write `apps.json` by hand. Just give this document to your AI 
 The agent will read the schema, look up your repos, fetch descriptions and icons, and generate a valid `apps.json` ready to commit. You can also ask it to:
 
 - Clone Appétit and set up a standalone store for you
-- Open a PR to `repos.json` on `f/wvw.dev` to list your apps
+- Open a PR to `stores.json` on `f/wvw.dev` to list your apps
 - Run `update-stats.sh` to refresh star counts
 
 This entire project — Appétit and World Vibe Web — was built with agentic engineering. Your `apps.json` can be too.
