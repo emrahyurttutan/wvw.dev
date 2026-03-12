@@ -318,7 +318,7 @@
         <div class="app-detail-header">
           <div class="app-detail-icon"${iconContainerStyle(app)}>${renderIcon(app)}</div>
           <div class="app-detail-title-area">
-            <div class="app-detail-title">${app.name} ${ownerBadge(app)}</div>
+            <div class="app-detail-title">${app.name}</div>
             ${app._owner ? `<div class="app-detail-owner">by <a href="https://github.com/${app._owner}" target="_blank" rel="noopener">${app._owner}</a></div>` : ""}
             <div class="app-detail-subtitle">${app.subtitle}</div>
             <div class="app-detail-actions">
