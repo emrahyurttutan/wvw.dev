@@ -580,6 +580,7 @@
 
     buildSidebar();
     bindEvents();
+    updateMobileTopbar();
   }
 
   function onHashChange() {
@@ -741,6 +742,34 @@
       carouselTimer = setInterval(() => goTo(current + 1), 5000);
     }
     resetAutoplay();
+
+    let touchStartX = 0;
+    let touchDeltaX = 0;
+    let dragging = false;
+
+    track.addEventListener("touchstart", (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchDeltaX = 0;
+      dragging = true;
+      track.style.transition = "none";
+    }, { passive: true });
+
+    track.addEventListener("touchmove", (e) => {
+      if (!dragging) return;
+      touchDeltaX = e.touches[0].clientX - touchStartX;
+      const offset = -(current * 100) + (touchDeltaX / track.offsetWidth) * 100;
+      track.style.transform = `translateX(${offset}%)`;
+    }, { passive: true });
+
+    track.addEventListener("touchend", () => {
+      if (!dragging) return;
+      dragging = false;
+      track.style.transition = "transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)";
+      if (touchDeltaX < -50) goTo(current + 1);
+      else if (touchDeltaX > 50) goTo(current - 1);
+      else goTo(current);
+      resetAutoplay();
+    });
   }
 
   // Sidebar click
@@ -749,6 +778,8 @@
       const item = e.target.closest(".nav-item");
       if (!item) return;
       navigate(item.dataset.view);
+      $("#sidebar").classList.remove("open");
+      $("#sidebarOverlay").classList.remove("open");
     });
   }
 
@@ -843,6 +874,43 @@
     bindKeyboard();
     bindThemeToggle();
     bindAbout();
+    bindMobileMenu();
+  }
+
+  function updateMobileTopbar() {
+    const menuBtn = $("#mobileMenuBtn");
+    const backBtn = $("#mobileBackBtn");
+    if (!menuBtn || !backBtn) return;
+
+    if (currentApp) {
+      menuBtn.style.display = "none";
+      backBtn.style.display = "flex";
+    } else {
+      menuBtn.style.display = "flex";
+      backBtn.style.display = "none";
+    }
+  }
+
+  function bindMobileMenu() {
+    const menuBtn = $("#mobileMenuBtn");
+    const backBtn = $("#mobileBackBtn");
+    const sidebar = $("#sidebar");
+    const overlay = $("#sidebarOverlay");
+    if (!menuBtn || !sidebar || !overlay) return;
+
+    menuBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+      overlay.classList.toggle("open");
+    });
+
+    overlay.addEventListener("click", () => {
+      sidebar.classList.remove("open");
+      overlay.classList.remove("open");
+    });
+
+    backBtn.addEventListener("click", () => {
+      navigate(currentView);
+    });
   }
 
   function bindThemeToggle() {
