@@ -48,7 +48,7 @@ for entry in $stores; do
     .apps | map(
       . + { _source: $source, _owner: $owner, _developer: $dev, _store: $store, _storeUrl: $storeUrl } |
       if .developer == null then .developer = $dev else . end |
-      .category = [.category[] | select(. as $c | $allowed | index($c))]
+      .category = [(.category // [])[] | select(. as $c | $allowed | index($c))]
     ) | map(select(.category | length > 0))
   ' "$tmp_file")
   all_apps=$(echo "$all_apps" "$apps_with_source" | jq -s '.[0] + .[1]')
