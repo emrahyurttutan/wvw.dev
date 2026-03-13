@@ -3,5 +3,6 @@
   "https://raw.githubusercontent.com/f/catalog/main/wvw.apps.json",
   "stedwick/wvw.dev.apps",
   "shametim/agent-chess",
-  "https://software-lab.shibukazu.com/apps.json"
+  "https://software-lab.shibukazu.com/apps.json",
+  "https://raw.githubusercontent.com/radioheavy/wvw.dev/master/radioheavy.apps.json"
 ]
