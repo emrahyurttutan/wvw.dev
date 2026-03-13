@@ -351,6 +351,7 @@
     {
       "id": "dodoclip",
       "name": "DodoClip",
+      "developer": "DodoApps",
       "subtitle": "A free clipboard manager for macOS",
       "description": "A lightweight, native clipboard manager that automatically saves everything you copy and provides instant access to your clipboard history.",
       "longDescription": "A lightweight, native clipboard manager that automatically saves everything you copy and provides instant access to your clipboard history.",
@@ -382,17 +383,16 @@
       "screenshots": [
         "https://github.com/user-attachments/assets/f281b654-a0a2-4883-b09c-21aa2cd3efb4"
       ],
-      "brew": "brew install --cask bluewave-labs/tap/dodoclip",
-      "_source": "https://raw.githubusercontent.com/DodoApps/catalog/main/wvw.apps.json",
-      "_owner": "main",
+      "_source": "DodoApps/catalog",
+      "_owner": "DodoApps",
       "_developer": "DodoApps",
       "_store": "DodoApps",
-      "_storeUrl": "https://github.com/DodoApps",
-      "developer": "DodoApps"
+      "_storeUrl": ""
     },
     {
       "id": "dodocount",
       "name": "DodoCount",
+      "developer": "DodoApps",
       "subtitle": "Google Analytics in your menu bar",
       "description": "A beautiful macOS menubar app for Google Analytics 4 and Search Console. Quick access to visitor data and search metrics.",
       "longDescription": "A beautiful macOS menubar app for Google Analytics 4 and Search Console. Quick access to visitor data and search metrics.",
@@ -422,17 +422,16 @@
         "Multiple property support"
       ],
       "screenshots": [],
-      "brew": "brew install --cask DodoApps/tap/dodocount",
-      "_source": "https://raw.githubusercontent.com/DodoApps/catalog/main/wvw.apps.json",
-      "_owner": "main",
+      "_source": "DodoApps/catalog",
+      "_owner": "DodoApps",
       "_developer": "DodoApps",
       "_store": "DodoApps",
-      "_storeUrl": "https://github.com/DodoApps",
-      "developer": "DodoApps"
+      "_storeUrl": ""
     },
     {
       "id": "dodonest",
       "name": "DodoNest",
+      "developer": "DodoApps",
       "subtitle": "Organize your menu bar items",
       "description": "A native macOS application for organizing and rearranging your menu bar items through drag-and-drop functionality and search.",
       "longDescription": "A native macOS application for organizing and rearranging your menu bar items through drag-and-drop functionality and search.",
@@ -464,17 +463,16 @@
       "screenshots": [
         "https://raw.githubusercontent.com/DodoApps/dodonest/main/assets/screenshot.png"
       ],
-      "brew": "brew install --cask dodoapps/tap/dodonest",
-      "_source": "https://raw.githubusercontent.com/DodoApps/catalog/main/wvw.apps.json",
-      "_owner": "main",
+      "_source": "DodoApps/catalog",
+      "_owner": "DodoApps",
       "_developer": "DodoApps",
       "_store": "DodoApps",
-      "_storeUrl": "https://github.com/DodoApps",
-      "developer": "DodoApps"
+      "_storeUrl": ""
     },
     {
       "id": "dodopass",
       "name": "DodoPass",
+      "developer": "DodoApps",
       "subtitle": "Native macOS password manager",
       "description": "A native macOS password manager built with SwiftUI, featuring local AES-256-GCM encryption with optional iCloud sync. Touch ID unlock, auto-lock, and smart clipboard.",
       "longDescription": "A native macOS password manager built with SwiftUI, featuring local AES-256-GCM encryption with optional iCloud sync. Touch ID unlock, auto-lock, and smart clipboard.",
@@ -504,17 +502,16 @@
         "Auto-lock on inactivity"
       ],
       "screenshots": [],
-      "brew": "brew install --cask dodoapps/tap/dodopass",
-      "_source": "https://raw.githubusercontent.com/DodoApps/catalog/main/wvw.apps.json",
-      "_owner": "main",
+      "_source": "DodoApps/catalog",
+      "_owner": "DodoApps",
       "_developer": "DodoApps",
       "_store": "DodoApps",
-      "_storeUrl": "https://github.com/DodoApps",
-      "developer": "DodoApps"
+      "_storeUrl": ""
     },
     {
       "id": "dodopulse",
       "name": "DodoPulse",
+      "developer": "DodoApps",
       "subtitle": "Real-time system monitoring in your menu bar",
       "description": "A lightweight, native macOS menu bar app that displays real-time system metrics with beautiful mini graphs. Monitor CPU, memory, GPU, network, and more.",
       "longDescription": "A lightweight, native macOS menu bar app that displays real-time system metrics with beautiful mini graphs. Monitor CPU, memory, GPU, network, and more.",
@@ -546,17 +543,16 @@
       "screenshots": [
         "https://github.com/user-attachments/assets/6868a0ac-1d01-45aa-84d7-8d21dc0daa6b"
       ],
-      "brew": "brew install --cask dodoapps/tap/dodopulse",
-      "_source": "https://raw.githubusercontent.com/DodoApps/catalog/main/wvw.apps.json",
-      "_owner": "main",
+      "_source": "DodoApps/catalog",
+      "_owner": "DodoApps",
       "_developer": "DodoApps",
       "_store": "DodoApps",
-      "_storeUrl": "https://github.com/DodoApps",
-      "developer": "DodoApps"
+      "_storeUrl": ""
     },
     {
       "id": "dodoshot",
       "name": "DodoShot",
+      "developer": "DodoApps",
       "subtitle": "A beautiful screenshot tool for macOS",
       "description": "Lightweight native macOS screenshot application with capture, annotation, and management capabilities. Inspired by CleanShot X, entirely free and open source.",
       "longDescription": "Lightweight native macOS screenshot application with capture, annotation, and management capabilities. Inspired by CleanShot X, entirely free and open source.",
@@ -588,17 +584,16 @@
       "screenshots": [
         "https://github.com/user-attachments/assets/a24b9914-0aab-4a03-993a-144069790290"
       ],
-      "brew": "brew install --cask DodoApps/tap/dodoshot",
-      "_source": "https://raw.githubusercontent.com/DodoApps/catalog/main/wvw.apps.json",
-      "_owner": "main",
+      "_source": "DodoApps/catalog",
+      "_owner": "DodoApps",
       "_developer": "DodoApps",
       "_store": "DodoApps",
-      "_storeUrl": "https://github.com/DodoApps",
-      "developer": "DodoApps"
+      "_storeUrl": ""
     },
     {
       "id": "dodotidy",
       "name": "DodoTidy",
+      "developer": "DodoApps",
       "subtitle": "A native macOS system cleaner",
       "description": "A native macOS application for system monitoring, disk analysis, and cleanup. Remove caches, logs, and temporary files with multiple safety mechanisms.",
       "longDescription": "A native macOS application for system monitoring, disk analysis, and cleanup. Remove caches, logs, and temporary files with multiple safety mechanisms.",
@@ -628,13 +623,11 @@
         "Safe trash-based deletion"
       ],
       "screenshots": [],
-      "brew": "brew install --cask dodoapps/tap/dodotidy",
-      "_source": "https://raw.githubusercontent.com/DodoApps/catalog/main/wvw.apps.json",
-      "_owner": "main",
+      "_source": "DodoApps/catalog",
+      "_owner": "DodoApps",
       "_developer": "DodoApps",
       "_store": "DodoApps",
-      "_storeUrl": "https://github.com/DodoApps",
-      "developer": "DodoApps"
+      "_storeUrl": ""
     },
     {
       "id": "galaksinin-muhafizlari",
@@ -758,6 +751,52 @@
       "developer": "Fatih Kadir Akin"
     },
     {
+      "id": "macabolic",
+      "name": "Macabolic",
+      "developer": "alinuxpengui",
+      "subtitle": "A video and audio downloader for macOS",
+      "description": "A beautiful GUI for yt-dlp. Download videos and audio from YouTube and thousands of other supported sites with SponsorBlock, subtitle and playlist support.",
+      "longDescription": "A beautiful GUI for yt-dlp. Download videos and audio from YouTube and thousands of other supported sites with SponsorBlock, subtitle and playlist support.",
+      "icon": "https://raw.githubusercontent.com/alinuxpengui/Macabolic/main/Macabolic/Resources/Assets.xcassets/AppIcon.appiconset/icon_512x512.png",
+      "iconStyle": {
+        "scale": 1.3,
+        "objectFit": "cover",
+        "borderRadius": "22%"
+      },
+      "category": [
+        "entertainment",
+        "macos"
+      ],
+      "platform": "macOS",
+      "price": "Free",
+      "github": "https://github.com/alinuxpengui/Macabolic",
+      "homepage": null,
+      "language": "Swift",
+      "stars": 241,
+      "forks": 5,
+      "downloadUrl": "https://github.com/alinuxpengui/Macabolic/releases/latest/download/Macabolic-v2.4.1.dmg",
+      "requirements": "macOS 12.0 or later",
+      "features": [
+        "YouTube, Twitter/X, Instagram and more",
+        "Supports up to 4K downloads",
+        "SponsorBlock integration",
+        "Subtitle support (embed/external)",
+        "Playlist downloads",
+        "Custom presets"
+      ],
+      "screenshots": [
+        "https://raw.githubusercontent.com/alinuxpengui/Macabolic/refs/heads/main/Screenshots/ss1.png",
+        "https://raw.githubusercontent.com/alinuxpengui/Macabolic/refs/heads/main/Screenshots/ss2.png",
+        "https://raw.githubusercontent.com/alinuxpengui/Macabolic/refs/heads/main/Screenshots/ss3.png",
+        "https://raw.githubusercontent.com/alinuxpengui/Macabolic/refs/heads/main/Screenshots/ss4.png"
+      ],
+      "_source": "DodoApps/catalog",
+      "_owner": "DodoApps",
+      "_developer": "DodoApps",
+      "_store": "DodoApps",
+      "_storeUrl": ""
+    },
+    {
       "id": "mcptools",
       "name": "MCP Tools",
       "subtitle": "Swiss Army Knife for MCP Servers",
@@ -834,7 +873,7 @@
       "_store": "Mergen ADE",
       "_storeUrl": "",
       "developer": "Furkan Cakir",
-      "stars": 1,
+      "stars": 5,
       "forks": 0
     },
     {
@@ -1003,8 +1042,8 @@
       "github": "https://github.com/f/prompts.chat",
       "homepage": "https://prompts.chat",
       "language": "TypeScript",
-      "stars": 151766,
-      "forks": 19949,
+      "stars": 151771,
+      "forks": 19950,
       "requirements": "Any modern browser",
       "features": [
         "151K+ GitHub stars",
