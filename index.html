@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="style.css">
   <script>
     (function() {
+      var h = location.hostname;
+      if (h === "localhost" || h === "127.0.0.1") return;
       var p = new URLSearchParams(window.location.search).get('p');
       if (p) history.replaceState(null, '', p);
     })();

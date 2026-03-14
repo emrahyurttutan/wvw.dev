@@ -719,7 +719,7 @@
           const sourceLink = isUrl ? s.source : `https://github.com/${s.source}`;
           const sourceLabel = isUrl ? s.source.replace(/^https?:\/\//, "").replace(/\/+$/, "") : s.owner;
           return `
-          <div class="store-card">
+          <div class="store-card" data-store="${encodeURIComponent(s.source)}" style="cursor:pointer">
             <div class="store-card-header">
               <div class="store-icon-stack">${iconStack}${fallbackAvatar}</div>
               <div class="store-card-info">
@@ -740,25 +740,117 @@
       </div>`;
   }
 
+  // Store Detail Page
+  function renderStoreDetail(storeSource) {
+    const store = storesData.find((s) => s.source === storeSource);
+    if (!store) return `<div class="empty-state"><div class="empty-state-icon">🏪</div><h3>Store not found</h3></div>`;
+
+    const apps = data.apps.filter((a) => a._source === storeSource);
+    const featuredList = Array.isArray(data.featured) ? data.featured : [];
+    const featuredApps = apps.filter((a) => featuredList.some((f) => f.id === a.id));
+    const isUrl = store.source.startsWith("http");
+    const sourceLink = isUrl ? store.source : `https://github.com/${store.source}`;
+    const categories = [...new Set(apps.flatMap((a) => a.category || []))];
+    const catNames = categories.map((cid) => {
+      const cat = (data.categories || []).find((c) => c.id === cid);
+      return cat ? cat.name : cid;
+    });
+
+    const storeIcons = (store.icons || []).slice(0, 4);
+    const iconGrid = storeIcons.length > 0
+      ? `<div class="store-detail-icon-grid">${storeIcons.map((ic) =>
+          `<img src="${ic.icon}" class="store-detail-grid-icon" style="${ic.iconStyle && ic.iconStyle.borderRadius ? "border-radius:" + ic.iconStyle.borderRadius : "border-radius:22%"}" onerror="this.style.display='none'">`
+        ).join("")}</div>`
+      : `<div class="store-detail-avatar-letter">${store.name.charAt(0).toUpperCase()}</div>`;
+
+    return `
+      <div class="app-detail">
+        <div class="back-btn" data-action="back-stores">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          Stores
+        </div>
+
+        <div class="store-detail-header">
+          <div class="store-detail-icon-area">
+            ${iconGrid}
+          </div>
+          <div class="store-detail-title-area">
+            <div class="store-detail-title">${store.name}</div>
+            <div class="store-detail-developer">by ${store.developer}</div>
+            ${featuredApps.length > 0 ? `<div class="store-detail-featured-badge"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> Featured Store</div>` : ""}
+            <div class="store-detail-actions">
+              ${store.url ? `<a href="${store.url}" target="_blank" rel="noopener" class="store-card-btn primary">Visit Store</a>` : ""}
+              <a href="${sourceLink}" target="_blank" rel="noopener" class="store-card-btn secondary">${icons.github} View Repo</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-detail-stats">
+          <div class="stat"><div class="stat-value">${store.appCount}</div><div class="stat-label">Apps</div></div>
+          <div class="stat"><div class="stat-value">${formatNumber(store.totalStars)}</div><div class="stat-label">Stars</div></div>
+          <div class="stat"><div class="stat-value">${categories.length}</div><div class="stat-label">Categories</div></div>
+        </div>
+
+        ${catNames.length > 0 ? `
+        <div class="store-detail-tags">
+          ${catNames.map((n) => `<span class="store-detail-tag">${n}</span>`).join("")}
+        </div>` : ""}
+
+        ${featuredApps.length > 0 ? `
+        <div class="detail-section">
+          <div class="section-header">
+            <h3 style="font-size:22px;margin-bottom:0">Featured</h3>
+          </div>
+          <div class="cards-grid">
+            ${featuredApps.map((a, i) => appCard(a, i)).join("")}
+          </div>
+        </div>` : ""}
+
+        <div class="detail-section">
+          <div class="section-header">
+            <h3 style="font-size:22px;margin-bottom:0">All Apps</h3>
+          </div>
+          <div class="app-list">
+            ${apps.map((a) => appRow(a)).join("")}
+          </div>
+        </div>
+      </div>`;
+  }
+
   // Router
+  const isLocal = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+  let suppressHash = false;
+
   function buildPath(view, appId) {
+    if (view === "stores" && appId) {
+      const slug = appId.startsWith("http") ? encodeURIComponent(appId) : appId;
+      return `/stores/${slug}`;
+    }
     if (appId) return `/${view}/${appId}`;
     if (view === "discover") return `/`;
     return `/${view}`;
   }
 
-  function parsePath() {
-    const path = location.pathname.replace(/^\//, "");
+  function parseRoute() {
+    const raw = isLocal ? location.hash.replace(/^#/, "") : location.pathname;
+    const path = raw.replace(/^\//, "");
     if (!path) return { view: "discover", appId: null };
     const parts = path.split("/");
+    if (parts[0] === "stores" && parts.length >= 2) {
+      return { view: "stores", appId: decodeURIComponent(parts.slice(1).join("/")) };
+    }
     if (parts.length >= 2) return { view: parts[0], appId: parts[1] };
     return { view: parts[0], appId: null };
   }
 
-  function parseHash() {
+  function parseLegacyHash() {
+    if (isLocal) return null;
     const hash = location.hash.replace(/^#\/?/, "");
     if (!hash) return null;
     const parts = hash.split("/");
+    if (parts[0] === "stores" && parts.length >= 2) {
+      return { view: "stores", appId: decodeURIComponent(parts.slice(1).join("/")) };
+    }
     if (parts.length >= 2) return { view: parts[0], appId: parts[1] };
     return { view: parts[0], appId: null };
   }
@@ -773,7 +865,11 @@
       return;
     }
 
-    if (appId) {
+    if (view === "stores" && appId) {
+      currentApp = appId;
+      currentView = view;
+      scroll.innerHTML = renderStoreDetail(appId);
+    } else if (appId) {
       currentApp = appId;
       currentView = view;
       scroll.innerHTML = renderAppDetail(appId);
@@ -792,7 +888,14 @@
     }
 
     if (!skipPush) {
-      history.pushState(null, "", buildPath(currentView, currentApp));
+      const path = buildPath(currentView, currentApp);
+      if (isLocal) {
+        suppressHash = true;
+        location.hash = path;
+        suppressHash = false;
+      } else {
+        history.pushState(null, "", path);
+      }
     }
 
     buildSidebar();
@@ -800,8 +903,9 @@
     updateMobileTopbar();
   }
 
-  function onPopState() {
-    const { view, appId } = parsePath();
+  function onRouteChange() {
+    if (isLocal && suppressHash) return;
+    const { view, appId } = parseRoute();
     navigate(view || "discover", appId || null, true);
   }
 
@@ -948,6 +1052,21 @@
       if (btn.dataset.boundBack) return;
       btn.dataset.boundBack = "1";
       btn.addEventListener("click", () => navigate(currentView));
+    });
+
+    $$("[data-action='back-stores']").forEach((btn) => {
+      if (btn.dataset.boundBackStores) return;
+      btn.dataset.boundBackStores = "1";
+      btn.addEventListener("click", () => navigate("stores"));
+    });
+
+    $$("[data-store]").forEach((el) => {
+      if (el.dataset.boundStore) return;
+      el.dataset.boundStore = "1";
+      el.addEventListener("click", (e) => {
+        if (e.target.closest("a")) return;
+        navigate("stores", decodeURIComponent(el.dataset.store));
+      });
     });
 
     $$("[data-copy]").forEach((el) => {
@@ -1150,14 +1269,14 @@
     }
 
     buildSidebar();
-    window.addEventListener("popstate", onPopState);
+    window.addEventListener(isLocal ? "hashchange" : "popstate", onRouteChange);
 
-    const hashRoute = parseHash();
-    if (hashRoute) {
-      history.replaceState(null, "", buildPath(hashRoute.view, hashRoute.appId));
-      navigate(hashRoute.view || "discover", hashRoute.appId || null, true);
+    const legacy = parseLegacyHash();
+    if (legacy) {
+      history.replaceState(null, "", buildPath(legacy.view, legacy.appId));
+      navigate(legacy.view || "discover", legacy.appId || null, true);
     } else {
-      const initial = parsePath();
+      const initial = parseRoute();
       navigate(initial.view || "discover", initial.appId || null, true);
     }
 
