@@ -447,7 +447,7 @@
       "_store": "TDD Works",
       "_storeUrl": "",
       "developer": "tddworks",
-      "stars": 62,
+      "stars": 63,
       "forks": 7,
       "_comments": [
         {
@@ -518,7 +518,7 @@
       "_store": "Mustafa Ergisi",
       "_storeUrl": "",
       "developer": "Mustafa Ergisi",
-      "stars": 383,
+      "stars": 384,
       "forks": 63,
       "_comments": [
         {
@@ -920,7 +920,7 @@
       "_store": "Mustafa Ergisi",
       "_storeUrl": "",
       "developer": "Mustafa Ergisi",
-      "stars": 383,
+      "stars": 384,
       "forks": 63,
       "_comments": [
         {
@@ -3346,8 +3346,8 @@
       "github": "https://github.com/f/prompts.chat",
       "homepage": "https://prompts.chat",
       "language": "TypeScript",
-      "stars": 152400,
-      "forks": 20027,
+      "stars": 152416,
+      "forks": 20032,
       "requirements": "Any modern browser",
       "features": [
         "151K+ GitHub stars",
@@ -3430,8 +3430,8 @@
       "homepage": "https://prompts.chat/book",
       "buyUrl": "https://donate.stripe.com/aFa8wO4NF2S96jDfn4dMI09",
       "language": "TypeScript",
-      "stars": 152400,
-      "forks": 20027,
+      "stars": 152416,
+      "forks": 20032,
       "requirements": "Any modern browser",
       "features": [
         "25 interactive chapters",
@@ -4044,8 +4044,8 @@
       "github": "https://github.com/f/textream",
       "homepage": "https://textream.fka.dev",
       "language": "Swift",
-      "stars": 1993,
-      "forks": 140,
+      "stars": 1996,
+      "forks": 141,
       "brew": "brew install f/textream/textream",
       "downloadUrl": "https://github.com/f/textream/releases/latest",
       "requirements": "macOS 15 Sequoia or later",
@@ -4372,6 +4372,46 @@
       "developer": "Kagan Temizkan",
       "stars": 0,
       "forks": 0
+    },
+    {
+      "id": "wvw-desktop",
+      "name": "World Vibe Web",
+      "subtitle": "The distributed app store, on your desktop",
+      "description": "A native desktop app for wvw.dev — browse, discover, and install vibe-coded open-source apps from across GitHub without opening a browser.",
+      "longDescription": "World Vibe Web desktop brings the full wvw.dev experience to your menu bar. Browse the community-curated catalog of open-source apps, read reviews, view screenshots, and install via Homebrew or direct download — all from a native window with macOS title bar integration. External links open in your default browser. Built with Tauri and Rust for a lightweight, fast experience. Available for macOS (Apple Silicon & Intel), Windows, and Linux.",
+      "icon": "https://raw.githubusercontent.com/f/wvw.dev/master/logo.png",
+      "iconStyle": {
+        "scale": 1.3,
+        "objectFit": "cover",
+        "borderRadius": "22%"
+      },
+      "category": [
+        "macos",
+        "utilities"
+      ],
+      "platform": "macOS",
+      "price": "Free",
+      "github": "https://github.com/f/wvw.dev-app",
+      "homepage": "https://wvw.dev",
+      "language": "Rust",
+      "stars": 1,
+      "forks": 0,
+      "downloadUrl": "https://github.com/f/wvw.dev-app/releases/latest",
+      "requirements": "macOS 10.15+, Windows 10+, or Linux",
+      "features": [
+        "Native desktop app powered by Tauri",
+        "Browse the full wvw.dev catalog",
+        "Available for macOS, Windows, and Linux",
+        "Lightweight — no Electron, built with Rust",
+        "Auto-updated from wvw.dev"
+      ],
+      "screenshots": [],
+      "_source": "f/appetit",
+      "_owner": "f",
+      "_developer": "Fatih Kadir Akin",
+      "_store": "Appétit",
+      "_storeUrl": "https://apps.fka.dev",
+      "developer": "Fatih Kadir Akin"
     }
   ]
 }
