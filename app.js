@@ -1309,6 +1309,7 @@
     bindThemeToggle();
     bindAbout();
     bindMobileMenu();
+    bindDesktopBanner();
   }
 
   function updateMobileTopbar() {
@@ -1344,6 +1345,25 @@
 
     backBtn.addEventListener("click", () => {
       navigate(currentView);
+    });
+  }
+
+  function bindDesktopBanner() {
+    const banner = $("#desktopBanner");
+    if (!banner) return;
+    if (localStorage.getItem("hideBanner")) {
+      banner.classList.add("hidden");
+      return;
+    }
+    const btn = $("#desktopBannerBtn");
+    const close = $("#desktopBannerClose");
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      navigate("discover", "wvw-desktop");
+    });
+    close.addEventListener("click", () => {
+      banner.classList.add("hidden");
+      localStorage.setItem("hideBanner", "1");
     });
   }
 
