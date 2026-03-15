@@ -249,6 +249,8 @@
       "name": "AI User Scripts",
       "subtitle": "AI-powered browser scripts",
       "description": "A collection of AI-enhanced user scripts for automating and improving browser workflows.",
+      "icon": null,
+      "iconEmoji": "🤖",
       "category": [
         "developer-tools"
       ],
@@ -447,7 +449,7 @@
       "_store": "TDD Works",
       "_storeUrl": "",
       "developer": "tddworks",
-      "stars": 63,
+      "stars": 64,
       "forks": 7,
       "_comments": [
         {
@@ -518,8 +520,8 @@
       "_store": "Mustafa Ergisi",
       "_storeUrl": "",
       "developer": "Mustafa Ergisi",
-      "stars": 387,
-      "forks": 67,
+      "stars": 396,
+      "forks": 69,
       "_comments": [
         {
           "user": "mergisi",
@@ -920,8 +922,8 @@
       "_store": "Mustafa Ergisi",
       "_storeUrl": "",
       "developer": "Mustafa Ergisi",
-      "stars": 387,
-      "forks": 67,
+      "stars": 396,
+      "forks": 69,
       "_comments": [
         {
           "user": "mergisi",
@@ -3126,25 +3128,6 @@
       ]
     },
     {
-      "id": "pinkcloud-timer",
-      "name": "PinkCloud Timer",
-      "subtitle": "Personal sobriety companion",
-      "description": "A personal sobriety companion that tracks your journey and celebrates your milestones.",
-      "category": [
-        "lifestyle"
-      ],
-      "platform": "iOS",
-      "price": "Free",
-      "github": "https://github.com/akeslo",
-      "appStore": "https://apps.apple.com/us/app/pinkcloud-timer/id6744997715",
-      "_source": "akeslo/wvw.com",
-      "_owner": "akeslo",
-      "_developer": "akeslo",
-      "_store": "Akeslo Apps",
-      "_storeUrl": "",
-      "developer": "akeslo"
-    },
-    {
       "id": "pixel-guess-game",
       "name": "Pixel Guess",
       "subtitle": "Guess the character behind the pixels",
@@ -3231,7 +3214,10 @@
       "name": "Podcast Ad Remover",
       "subtitle": "Skip the ads, keep the content",
       "description": "Automatically detects and removes advertisements from podcast audio files.",
+      "icon": null,
+      "iconEmoji": "🎙️",
       "category": [
+        "macos",
         "utilities"
       ],
       "platform": "Python",
@@ -3367,8 +3353,8 @@
       "github": "https://github.com/f/prompts.chat",
       "homepage": "https://prompts.chat",
       "language": "TypeScript",
-      "stars": 152441,
-      "forks": 20035,
+      "stars": 152490,
+      "forks": 20049,
       "requirements": "Any modern browser",
       "features": [
         "151K+ GitHub stars",
@@ -3451,8 +3437,8 @@
       "homepage": "https://prompts.chat/book",
       "buyUrl": "https://donate.stripe.com/aFa8wO4NF2S96jDfn4dMI09",
       "language": "TypeScript",
-      "stars": 152441,
-      "forks": 20035,
+      "stars": 152490,
+      "forks": 20049,
       "requirements": "Any modern browser",
       "features": [
         "25 interactive chapters",
@@ -3746,6 +3732,8 @@
       "name": "Rerun Timer",
       "subtitle": "The Infinite Loop Timer",
       "description": "A looping timer that automatically restarts, perfect for interval training and recurring tasks.",
+      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/0e/98/c3/0e98c388-eb8a-3d15-dba3-34d3600b76d9/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+      "iconEmoji": "⏱️",
       "category": [
         "productivity",
         "utilities"
@@ -3753,7 +3741,7 @@
       "platform": "iOS",
       "price": "Free",
       "github": "https://github.com/akeslo",
-      "appStore": "https://apps.apple.com/us/app/rerun-timer/id6755941416",
+      "homepage": "https://apps.apple.com/us/app/rerun-timer/id6755941416",
       "_source": "akeslo/wvw.com",
       "_owner": "akeslo",
       "_developer": "akeslo",
@@ -3935,6 +3923,47 @@
       ]
     },
     {
+      "id": "soundshift",
+      "name": "SoundShift",
+      "subtitle": "Discover how your music taste evolved",
+      "description": "Analyze your Spotify liked songs and visualize your genre journey over the years with interactive charts.",
+      "longDescription": "SoundShift analyzes your Spotify liked songs library and builds an interactive timeline showing how your music taste evolved year by year. It enriches genre data from Spotify, Last.fm, and MusicBrainz to create accurate genre breakdowns. Features include stacked area charts, year-by-year drill-down with song lists, shareable image cards, and a public landing page with community stats.",
+      "iconEmoji": "🎵",
+      "category": [
+        "music",
+        "entertainment",
+        "web"
+      ],
+      "platform": "Web",
+      "price": "Free",
+      "github": "https://github.com/apo-bozdag/SoundShift",
+      "homepage": "https://soundshift-4no7.onrender.com",
+      "language": "JavaScript",
+      "features": [
+        "Genre evolution timeline with stacked area charts",
+        "Year-by-year drill-down with song lists",
+        "3-tier genre enrichment: Spotify, Last.fm, MusicBrainz",
+        "Shareable image cards (Story, Post, Twitter formats)",
+        "Public landing page with community stats",
+        "Multi-language support (TR/EN)",
+        "Mobile-friendly with Web Share API"
+      ],
+      "screenshots": [
+        "https://raw.githubusercontent.com/apo-bozdag/SoundShift/main/ss/1.png",
+        "https://raw.githubusercontent.com/apo-bozdag/SoundShift/main/ss/2.png",
+        "https://raw.githubusercontent.com/apo-bozdag/SoundShift/main/ss/3.png",
+        "https://raw.githubusercontent.com/apo-bozdag/SoundShift/main/ss/4.png"
+      ],
+      "_source": "apo-bozdag/SoundShift",
+      "_owner": "apo-bozdag",
+      "_developer": "Abdullah Bozdag",
+      "_store": "RadKod Apps",
+      "_storeUrl": "",
+      "developer": "Abdullah Bozdag",
+      "stars": 0,
+      "forks": 0
+    },
+    {
       "id": "sql-prep",
       "name": "SQL Prep",
       "subtitle": "SQL interview prep & quiz",
@@ -4003,7 +4032,7 @@
       "_store": "Shibutani Software Lab",
       "_storeUrl": "",
       "developer": "Kazuki Shibutani",
-      "stars": 1,
+      "stars": 2,
       "forks": 0
     },
     {
@@ -4065,7 +4094,7 @@
       "github": "https://github.com/f/textream",
       "homepage": "https://textream.fka.dev",
       "language": "Swift",
-      "stars": 1997,
+      "stars": 1999,
       "forks": 140,
       "brew": "brew install f/textream/textream",
       "downloadUrl": "https://github.com/f/textream/releases/latest",
@@ -4214,7 +4243,10 @@
       "name": "Unified Audio Control",
       "subtitle": "One control for all your audio",
       "description": "Centralized audio management tool for controlling multiple audio sources from one interface.",
+      "icon": null,
+      "iconEmoji": "🎛️",
       "category": [
+        "macos",
         "utilities"
       ],
       "platform": "Python",
@@ -4349,7 +4381,10 @@
       "name": "WhisperWrap",
       "subtitle": "Whisper made easy",
       "description": "A convenient wrapper for OpenAI Whisper, simplifying speech-to-text transcription workflows.",
+      "icon": null,
+      "iconEmoji": "🗣️",
       "category": [
+        "macos",
         "developer-tools"
       ],
       "platform": "Python",
