@@ -285,10 +285,11 @@
   function appCard(app, index) {
     const grads = getCardGradients();
     const g = grads[index % grads.length];
-    const hasScreenshot = app.screenshots && app.screenshots.length > 0;
-    const screenshotImg = hasScreenshot
-      ? smartMedia(app.screenshots[0], "card-screenshot", app.name)
-      : "";
+    const showcasePick = showcaseData ? (showcaseData.picks || []).find((p) => p.id === app.id && p.showcase_image) : null;
+    const hasScreenshot = showcasePick || (app.screenshots && app.screenshots.length > 0);
+    const screenshotImg = showcasePick
+      ? `<img class="card-screenshot" src="${showcasePick.showcase_image}" alt="${app.name}" loading="lazy">`
+      : (app.screenshots && app.screenshots.length > 0 ? smartMedia(app.screenshots[0], "card-screenshot", app.name) : "");
     return `
       <div class="card" data-app="${app.id}">
         <div class="card-image">
@@ -863,6 +864,21 @@
         <div class="store-detail-tags">
           ${catNames.map((n) => `<span class="store-detail-tag">${n}</span>`).join("")}
         </div>` : ""}
+
+        ${(() => {
+          const allPicks = showcaseData ? (showcaseData.picks || []).filter((p) => apps.some((a) => a.id === p.id)) : [];
+          const showcasePicks = allPicks.sort(() => 0.5 - Math.random()).slice(0, 2);
+          if (showcasePicks.length === 0) return "";
+          return `
+        <div class="detail-section">
+          <div class="section-header">
+            <h3 style="font-size:22px;margin-bottom:0">Showcased</h3>
+          </div>
+          <div class="showcase-picks">
+            ${showcasePicks.map((p) => showcaseCard(p)).join("")}
+          </div>
+        </div>`;
+        })()}
 
         ${featuredApps.length > 0 ? `
         <div class="detail-section">
