@@ -8,27 +8,27 @@
   "featured": [
     {
       "id": "prompts-chat",
-      "headline": "TOP RATED",
-      "title": "Over 150,000 stars of prompt brilliance.",
-      "subtitle": "The internet's most beloved prompt collection, now a full app. Search, save, and share prompts for ChatGPT, Claude, and Gemini — or self-host it for your team with total privacy."
+      "headline": "COMMUNITY FAVORITE",
+      "title": "The world's most-starred prompt collection.",
+      "subtitle": "With 150K+ GitHub stars, Prompts.chat is the definitive home for AI prompts. Browse hundreds of curated starters for ChatGPT, Claude, and Gemini — or self-host the entire thing for your team in minutes."
     },
     {
-      "id": "crewclaw",
-      "headline": "JUST SHIPPED",
-      "title": "Your AI workforce, deployed in 60 seconds.",
-      "subtitle": "CrewClaw turns agent deployment from a weekend project into a one-click moment. Choose from 103 battle-tested templates, plug into Telegram or Slack, and your digital employees are live."
+      "id": "macabolic",
+      "headline": "EDITOR'S PICK",
+      "title": "Every video, beautifully yours.",
+      "subtitle": "Macabolic wraps the legendary yt-dlp engine in a polished native Mac interface — download anything from YouTube to Instagram in up to 4K, skip sponsors automatically, and grab whole playlists without touching the terminal."
     },
     {
-      "id": "dodotidy",
-      "headline": "RISING STAR",
-      "title": "Give your Mac room to breathe again.",
-      "subtitle": "DodoTidy is the native macOS cleaner that actually understands your disk — surfacing hidden caches, bloated logs, and junk files, then trash-deleting them safely so you never lose what matters."
+      "id": "asc-cli",
+      "headline": "HIDDEN GEM",
+      "title": "Ship to the App Store without leaving your shell.",
+      "subtitle": "asc puts the full App Store Connect API at your fingertips — builds, TestFlight, screenshots, subscriptions, and code signing — all scriptable, AI-agent-ready, and CI-friendly out of the box."
     },
     {
-      "id": "hono-telescope",
-      "headline": "FAN FAVORITE",
-      "title": "See inside every request, in real time.",
-      "subtitle": "Hono Telescope drops a live dashboard into your Node.js or Bun app with one middleware line — inspect requests, stack traces, and database queries without ever leaving your browser."
+      "id": "vitepress-mermaid-renderer",
+      "headline": "MUST TRY",
+      "title": "Diagrams that zoom, pan, and dazzle.",
+      "subtitle": "Drop one plugin into your VitePress site and every Mermaid block becomes a living, interactive diagram — fullscreen, theme-aware, and exportable as SVG or PNG with a single click."
     }
   ],
   "categories": [
@@ -347,7 +347,7 @@
       "homepage": "https://apps.fka.dev",
       "language": "JavaScript",
       "stars": 28,
-      "forks": 4,
+      "forks": 5,
       "requirements": "Any modern browser",
       "features": [
         "Apple App Store-inspired UI",
@@ -459,8 +459,8 @@
       "_store": "Mustafa Ergisi",
       "_storeUrl": "",
       "developer": "Mustafa Ergisi",
-      "stars": 406,
-      "forks": 71
+      "stars": 413,
+      "forks": 72
     },
     {
       "id": "bilokma",
@@ -708,8 +708,8 @@
       "_store": "Mustafa Ergisi",
       "_storeUrl": "",
       "developer": "Mustafa Ergisi",
-      "stars": 406,
-      "forks": 71
+      "stars": 413,
+      "forks": 72
     },
     {
       "id": "damga",
@@ -1464,7 +1464,7 @@
       "_store": "scyto",
       "_storeUrl": "",
       "developer": "scyto",
-      "stars": 23,
+      "stars": 24,
       "forks": 0
     },
     {
@@ -1676,7 +1676,7 @@
       "github": "https://github.com/alinuxpengui/Macabolic",
       "homepage": null,
       "language": "Swift",
-      "stars": 242,
+      "stars": 243,
       "forks": 5,
       "downloadUrl": null,
       "requirements": "macOS 12.0 or later",
@@ -1985,7 +1985,7 @@
       "_store": "Yusuf's Apps",
       "_storeUrl": "",
       "developer": "Yusuf Altunbicak",
-      "stars": 5,
+      "stars": 6,
       "forks": 0
     },
     {
@@ -2255,8 +2255,8 @@
       "github": "https://github.com/f/prompts.chat",
       "homepage": "https://prompts.chat",
       "language": "TypeScript",
-      "stars": 152582,
-      "forks": 20057,
+      "stars": 152633,
+      "forks": 20065,
       "requirements": "Any modern browser",
       "features": [
         "151K+ GitHub stars",
@@ -2299,8 +2299,8 @@
       "homepage": "https://prompts.chat/book",
       "buyUrl": "https://donate.stripe.com/aFa8wO4NF2S96jDfn4dMI09",
       "language": "TypeScript",
-      "stars": 152582,
-      "forks": 20057,
+      "stars": 152633,
+      "forks": 20065,
       "requirements": "Any modern browser",
       "features": [
         "25 interactive chapters",
@@ -2874,8 +2874,8 @@
       "github": "https://github.com/f/textream",
       "homepage": "https://textream.fka.dev",
       "language": "Swift",
-      "stars": 2003,
-      "forks": 140,
+      "stars": 2005,
+      "forks": 141,
       "brew": "brew install f/textream/textream",
       "downloadUrl": "https://github.com/f/textream/releases/latest",
       "requirements": "macOS 15 Sequoia or later",
