@@ -213,7 +213,7 @@ jobs:
                   issues.push("`id` contains spaces");
                 }
                 if (!app.icon && !app.iconEmoji) {
-                  suggestions.push("Add an `icon` URL or `iconEmoji`");
+                  issues.push("Missing `icon` or `iconEmoji` — apps without icons are excluded from the catalog");
                 }
                 if (!app.screenshots || app.screenshots.length === 0) {
                   suggestions.push("Add `screenshots` for a better listing");

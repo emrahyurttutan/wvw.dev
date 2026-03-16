@@ -21,7 +21,7 @@ apps_json=$(jq '.apps' "$APPS_FILE")
 showcase="[]"
 
 for cat in $categories; do
-  candidates=$(echo "$apps_json" | jq --arg c "$cat" '[.[] | select(.category != null and (.category | index($c)))]')
+  candidates=$(echo "$apps_json" | jq --arg c "$cat" '[.[] | select(.category != null and (.category | index($c))) | select(.icon != null or .iconEmoji != null)]')
   count=$(echo "$candidates" | jq 'length')
 
   if [ "$count" -eq 0 ]; then

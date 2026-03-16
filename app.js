@@ -74,6 +74,16 @@
       : cardGradientsDark;
   }
 
+  function sortApps(apps) {
+    return [...apps].sort((a, b) => {
+      const starsA = a.stars || 0, starsB = b.stars || 0;
+      if (starsB !== starsA) return starsB - starsA;
+      const iconA = a.icon ? 1 : 0, iconB = b.icon ? 1 : 0;
+      if (iconB !== iconA) return iconB - iconA;
+      return (a.name || "").localeCompare(b.name || "");
+    });
+  }
+
   function formatNumber(n) {
     if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
     if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, "") + "K";
@@ -460,7 +470,7 @@
           <h2>Best New Apps and Updates</h2>
         </div>
         <div class="app-list">
-          ${apps.slice(0, 6).map((a) => appRow(a)).join("")}
+          ${sortApps(apps).slice(0, 6).map((a) => appRow(a)).join("")}
         </div>
       </div>
 
@@ -473,7 +483,7 @@
           <h2>Best Paid Apps</h2>
         </div>
         <div class="app-list">
-          ${paidApps.map((a) => appRow(a)).join("")}
+          ${sortApps(paidApps).map((a) => appRow(a)).join("")}
         </div>
       </div>`;
       })()}
@@ -502,7 +512,7 @@
           ${picks.map((p) => showcaseCard(p)).join("")}
         </div>` : ""}
         <div class="app-list">
-          ${catApps.slice(0, 6).map((a) => appRow(a)).join("")}
+          ${sortApps(catApps).slice(0, 6).map((a) => appRow(a)).join("")}
         </div>
       </div>`;
       }).join("")}
@@ -535,7 +545,7 @@
         ${picks.map((p) => showcaseCard(p)).join("")}
       </div>` : ""}
       <div class="app-list">
-        ${apps.map((a) => appRow(a)).join("")}
+        ${sortApps(apps).map((a) => appRow(a)).join("")}
       </div>`;
   }
 
