@@ -77,12 +77,12 @@ while IFS= read -r app; do
 
   prompt="A square app icon that fills the entire canvas edge-to-edge with ZERO padding, ZERO margin, ZERO border, NO empty space around the edges. The icon for \"${app_name}\" — ${app_subtitle}. Category: ${app_category}. A bold symbolic graphic on a solid or gradient color background that extends to every pixel of the image boundary. Style: iOS/macOS app icon, vibrant colors, simple centered symbol. No text, no letters, no words. The background color must touch all four edges completely."
 
-  response=$(curl -s --max-time 60 -X POST "https://fal.run/fal-ai/nano-banana-2" \
+  response=$(curl -s --max-time 60 -X POST "https://fal.run/fal-ai/nano-banana" \
     -H "Authorization: Key ${FAL_AI_KEY}" \
     -H "Content-Type: application/json" \
     -d "$(jq -n --arg p "$prompt" '{
       prompt: $p,
-      aspect_ratio: "1:1",
+      image_size: "square",
       num_images: 1
     }')" 2>/dev/null) || response=""
 
