@@ -24,6 +24,16 @@ fi
 
 mkdir -p "$ICONS_DIR" "$SHOWCASE_DIR"
 
+# Use magick if available, fall back to convert
+if command -v magick &>/dev/null; then
+  IMG_CMD="magick"
+elif command -v convert &>/dev/null; then
+  IMG_CMD="convert"
+else
+  echo "Error: ImageMagick not found (neither magick nor convert)."
+  exit 1
+fi
+
 REPO_BASE="https://raw.githubusercontent.com/f/wvw.dev/master"
 OUR_ICON_PREFIX="${REPO_BASE}/${ICONS_DIR}/"
 
@@ -91,7 +101,7 @@ while IFS= read -r app; do
 
   if [ -n "$img_url" ]; then
     if curl -sL "$img_url" -o "${icon_file}.tmp"; then
-      if magick "${icon_file}.tmp" -trim +repage -resize 512x512^ -gravity center -extent 512x512 -quality 85 "$icon_file" 2>/dev/null; then
+      if $IMG_CMD "${icon_file}.tmp" -fuzz 5% -trim +repage -resize 512x512! -quality 85 "$icon_file" 2>/dev/null; then
         echo "OK"
         icon_count=$((icon_count + 1))
       else
@@ -171,7 +181,7 @@ else
 
     echo -n "  $app_id — downloading... "
     if curl -sL "$img_url" -o "${cache_file}.tmp" 2>/dev/null; then
-      magick "${cache_file}.tmp" -quality 80 "$cache_file" 2>/dev/null && \
+      $IMG_CMD "${cache_file}.tmp" -quality 80 "$cache_file" 2>/dev/null && \
       rm -f "${cache_file}.tmp" && \
       echo "OK ($(du -h "$cache_file" | awk '{print $1}'))" && \
       showcase_count=$((showcase_count + 1))
