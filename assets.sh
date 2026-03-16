@@ -88,7 +88,7 @@ while IFS= read -r app; do
 
   if [ -n "$img_url" ]; then
     if curl -sL "$img_url" -o "${icon_file}.tmp"; then
-      if magick "${icon_file}.tmp" -resize 512x512^ -gravity center -extent 512x512 -quality 85 "$icon_file" 2>/dev/null; then
+      if magick "${icon_file}.tmp" -trim +repage -resize 512x512^ -gravity center -extent 512x512 -quality 85 "$icon_file" 2>/dev/null; then
         echo "OK"
         icon_count=$((icon_count + 1))
       else
