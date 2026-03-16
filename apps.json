@@ -467,8 +467,8 @@
       "_store": "Mustafa Ergisi",
       "_storeUrl": "",
       "developer": "Mustafa Ergisi",
-      "stars": 656,
-      "forks": 101
+      "stars": 658,
+      "forks": 103
     },
     {
       "id": "baby-sleeper",
@@ -872,8 +872,8 @@
       "_store": "Mustafa Ergisi",
       "_storeUrl": "",
       "developer": "Mustafa Ergisi",
-      "stars": 656,
-      "forks": 101
+      "stars": 658,
+      "forks": 103
     },
     {
       "id": "damga",
@@ -9718,8 +9718,8 @@
       "github": "https://github.com/f/prompts.chat",
       "homepage": "https://prompts.chat",
       "language": "TypeScript",
-      "stars": 152821,
-      "forks": 20097,
+      "stars": 152826,
+      "forks": 20100,
       "requirements": "Any modern browser",
       "features": [
         "151K+ GitHub stars",
@@ -9762,8 +9762,8 @@
       "homepage": "https://prompts.chat/book",
       "buyUrl": "https://donate.stripe.com/aFa8wO4NF2S96jDfn4dMI09",
       "language": "TypeScript",
-      "stars": 152821,
-      "forks": 20097,
+      "stars": 152826,
+      "forks": 20100,
       "requirements": "Any modern browser",
       "features": [
         "25 interactive chapters",
