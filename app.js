@@ -1451,11 +1451,11 @@
     if (!menuBtn || !backBtn) return;
 
     if (currentApp) {
-      menuBtn.style.display = "none";
-      backBtn.style.display = "flex";
+      menuBtn.classList.add("hidden");
+      backBtn.classList.remove("hidden");
     } else {
-      menuBtn.style.display = "flex";
-      backBtn.style.display = "none";
+      menuBtn.classList.remove("hidden");
+      backBtn.classList.add("hidden");
     }
   }
 

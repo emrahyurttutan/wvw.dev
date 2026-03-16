@@ -2196,6 +2196,11 @@ a.about-btn {
   pointer-events: none;
 }
 
+.mobile-menu-fab.hidden,
+.mobile-back-fab.hidden {
+  display: none !important;
+}
+
 .sidebar-overlay {
   display: none;
   position: fixed;
