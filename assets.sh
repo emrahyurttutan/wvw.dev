@@ -44,47 +44,14 @@ removed=0
 echo ""
 echo "=== Checking app icons ==="
 
-needs_icon() {
-  local icon_url="$1"
-  if [ -z "$icon_url" ] || [ "$icon_url" = "null" ]; then
-    return 0
-  fi
-  local tmp="/tmp/wvw-icon-check-$$.tmp"
-  if ! curl -sf --max-time 10 -o "$tmp" "$icon_url" 2>/dev/null; then
-    rm -f "$tmp"
-    return 0
-  fi
-  local dims
-  dims=$($IMG_CMD identify -format "%w %h" "$tmp" 2>/dev/null) || { rm -f "$tmp"; return 0; }
-  rm -f "$tmp"
-  local w h
-  w=$(echo "$dims" | awk '{print $1}')
-  h=$(echo "$dims" | awk '{print $2}')
-  if [ -z "$w" ] || [ -z "$h" ] || [ "$w" -eq 0 ] || [ "$h" -eq 0 ]; then
-    return 0
-  fi
-  local ratio
-  if [ "$w" -gt "$h" ]; then
-    ratio=$(( (w * 100) / h ))
-  else
-    ratio=$(( (h * 100) / w ))
-  fi
-  # Not square if ratio > 1.15 (15% tolerance)
-  if [ "$ratio" -gt 115 ]; then
-    return 0
-  fi
-  return 1
-}
-
-total_apps=$(jq '.apps | length' "$APPS_FILE")
-echo "Checking $total_apps apps..."
+total_needing=$(jq '[.apps[] | select(.icon == null or .icon == "")] | length' "$APPS_FILE")
+echo "Found $total_needing apps without icons."
 
 icon_count=0
 while IFS= read -r app; do
   [ -z "$app" ] && continue
   app_id=$(echo "$app" | jq -r '.id')
   app_name=$(echo "$app" | jq -r '.name')
-  app_icon=$(echo "$app" | jq -r '.icon // empty')
   app_subtitle=$(echo "$app" | jq -r '.subtitle // ""')
   app_category=$(echo "$app" | jq -r '(.category // [])[0] // "utilities"')
   app_platform=$(echo "$app" | jq -r '.platform // "App"')
@@ -96,10 +63,6 @@ while IFS= read -r app; do
     continue
   fi
 
-  if ! needs_icon "$app_icon"; then
-    continue
-  fi
-
   if [ -z "${FAL_AI_KEY:-}" ]; then
     echo "  $app_name — SKIPPED (no FAL_AI_KEY)"
     continue
@@ -107,9 +70,11 @@ while IFS= read -r app; do
 
   echo -n "  $app_name — generating... "
 
-  prompt="A square app icon that fills the entire canvas edge-to-edge with ZERO padding, ZERO margin, ZERO border, NO empty space around the edges. The icon for \"${app_name}\" — ${app_subtitle}. Category: ${app_category}. A bold symbolic graphic on a solid or gradient color background that extends to every pixel of the image boundary. Style: iOS/macOS app icon, vibrant colors, simple centered symbol. No text, no letters, no words. The background color must touch all four edges completely."
+  prompt="CRITICAL RULES: (1) Background MUST fill 100% of the image — NO padding, NO margin, NO border, NO whitespace at ANY edge. Color bleeds off ALL four sides. (2) MUST be skeuomorphic — realistic 3D materials, NOT flat design.
 
-  response=$(curl -s --max-time 60 -X POST "https://fal.run/fal-ai/nano-banana" \
+Apple iOS skeuomorphic app icon for \"${app_name}\" (${app_subtitle}, ${app_category}). A single photorealistic 3D object made of real-world materials: brushed aluminum, frosted glass, polished wood, stitched leather, or chrome metal. The object has real depth, weight, texture, specular highlights, cast shadows, and surface imperfections. Think Apple iOS 6 icon design — rich, tactile, dimensional, like you could reach in and touch it. One hero object centered on a vibrant gradient background. No text, no letters. Background fills every pixel to every edge."
+
+  response=$(curl -s --max-time 60 -X POST "https://fal.run/fal-ai/nano-banana-2" \
     -H "Authorization: Key ${FAL_AI_KEY}" \
     -H "Content-Type: application/json" \
     -d "$(jq -n --arg p "$prompt" '{
@@ -122,7 +87,7 @@ while IFS= read -r app; do
 
   if [ -n "$img_url" ]; then
     if curl -sL "$img_url" -o "${icon_file}.tmp"; then
-      if $IMG_CMD "${icon_file}.tmp" -fuzz 5% -trim +repage -resize 512x512! -quality 85 "$icon_file" 2>/dev/null; then
+      if $IMG_CMD "${icon_file}.tmp" -fuzz 10% -trim +repage -background white -flatten -resize 512x512! -quality 85 "$icon_file" 2>/dev/null; then
         echo "OK"
         icon_count=$((icon_count + 1))
       else
@@ -135,11 +100,11 @@ while IFS= read -r app; do
   else
     echo "API FAILED"
   fi
-done < <(jq -c '.apps[]' "$APPS_FILE")
+done < <(jq -c '.apps[] | select(.icon == null or .icon == "")' "$APPS_FILE")
 
 echo "Generated $icon_count new icons."
 
-# --- Remove generated icons for apps that now have a good square icon ---
+# --- Remove generated icons for apps that now have their own icon ---
 echo ""
 echo "=== Cleaning up superseded generated icons ==="
 
@@ -148,8 +113,8 @@ for icon_file in "$ICONS_DIR"/*.jpg; do
   app_id=$(basename "$icon_file" .jpg)
   app_icon=$(jq -r --arg id "$app_id" '.apps[] | select(.id == $id) | .icon // empty' "$APPS_FILE" | head -1)
 
-  if [ -n "$app_icon" ] && ! needs_icon "$app_icon"; then
-    echo "  $app_id — owner now has a good icon, removing generated"
+  if [ -n "$app_icon" ] && [[ "$app_icon" != *"assets/icons/"* ]]; then
+    echo "  $app_id — owner set their own icon, removing generated"
     jq --arg id "$app_id" '
       .apps = [.apps[] | if .id == $id then del(._generatedIcon) else . end]
     ' "$APPS_FILE" > "${APPS_FILE}.tmp" && mv "${APPS_FILE}.tmp" "$APPS_FILE"
